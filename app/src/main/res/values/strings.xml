@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">KU run</string>
+
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
+    <string name="user">User:</string>
+    <string name="pass">Pass:</string>
+
+    <string name="Name">ชื่อ</string>
+    <string name="Surname">นามสกุล</string>
+    <string name="ID_Student">รหัสนิสิต</string>
+    <string name="Year">ปีการศึกษา</string>
+    <string name="User">ชื่อในเกมส์</string>
+    <string name="Password">รหัสเข้าเกมส์</string>
+    <string name="Avata">รูปในเกมส์</string>
+</resources>

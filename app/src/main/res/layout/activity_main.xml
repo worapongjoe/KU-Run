@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kusrc.worapong.preyapron.sriwan.kurun.MainActivity"
+    android:background="@drawable/bg">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signin"
+            android:id="@+id/button"
+            android:layout_weight="1"
+            android:onClick="clickSignInMain" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signup"
+            android:id="@+id/button2"
+            android:layout_weight="1"
+            android:onClick="clickSignUpMain" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:padding="@dimen/my_margin"
+        android:gravity="center_horizontal"
+        android:id="@+id/linearLayout2"
+        android:weightSum="1"
+        android:background="#82ffffff">
+
+        <ImageView
+            android:layout_width="@dimen/icon"
+            android:layout_height="@dimen/icon"
+            android:id="@+id/imageView"
+            android:src="@drawable/kaset" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KU Run"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.91"
+            android:textSize="@dimen/h1" />
+
+        <EditText
+            android:layout_width="@dimen/edit"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:hint="@string/user"
+            android:inputType="text" />
+
+        <EditText
+            android:layout_width="@dimen/edit"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/pass"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+</RelativeLayout>
