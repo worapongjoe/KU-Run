@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -24,6 +25,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Criteria criteria;
     private boolean gpsABoolean, networkABoolean;
     private double myLatADouble, myLngADouble;
+    private String[] resultStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
         criteria.setBearingRequired(false);
+        resultStrings = getIntent().getStringArrayExtra("Result");
+
 
         //My Loop
         //myLoop();
@@ -150,7 +154,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //for user
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(myLatADouble, myLngADouble)));
+                .position(new LatLng(myLatADouble, myLngADouble))
+                .icon(BitmapDescriptorFactory.fromResource(findIconMarker(resultStrings[7]))));
 
 
         Handler handler = new Handler();
@@ -162,6 +167,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }, 3000);
 
     }   // createAllMarker
+
+    private int findIconMarker(String resultString) {
+
+        int intIcon = R.drawable.kon48;
+        return intIcon;
+    }
 
     private void goToCenterMap() {
 

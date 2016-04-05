@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "ยินดีต้อนรับ " + resultStrings[1], Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                intent.putExtra("Result",resultStrings);
                 startActivity(intent);
 
             } else {
