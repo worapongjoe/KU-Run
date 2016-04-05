@@ -13,4 +13,5 @@
     <string name="User">ชื่อในเกมส์</string>
     <string name="Password">รหัสเข้าเกมส์</string>
     <string name="Avata">รูปในเกมส์</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
