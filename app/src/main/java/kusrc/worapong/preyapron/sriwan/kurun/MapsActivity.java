@@ -17,6 +17,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -69,6 +78,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
 
         locationManager.removeUpdates(locationListener);
+
+        //นี่คือค่าเริ่มต้นของ Map ถ้าไม่ได้ต่อ GPS หรือ Net
         myLatADouble = 13.668066;
         myLngADouble = 100.622454;
 
@@ -150,13 +161,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void createAllMarker() {
 
-        mMap.clear();
+        mMap.clear();   // Delete All Marker
 
         //for user
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(myLatADouble, myLngADouble))
                 .icon(BitmapDescriptorFactory.fromResource(findIconMarker(resultStrings[7]))));
 
+        //Update Lat, Lng to mySQL
+        updateLatLngToMySQL();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -168,9 +181,73 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }   // createAllMarker
 
+    private void updateLatLngToMySQL() {
+
+        String strID = resultStrings[0];
+        Log.d("18April", "id ==> " + strID);
+
+        String strLat = Double.toString(myLatADouble);
+        String strLng = Double.toString(myLngADouble);
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = new FormEncodingBuilder()
+                .add("isAdd", "true")
+                .add("id", strID)
+                .add("Lat", strLat)
+                .add("Lng", strLng)
+                .build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url("http://swiftcodingthai.com/keng/php_edit_location.php")
+                .post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Log.d("18April", "error ==> " + e.toString());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+
+                try {
+
+                } catch (Exception e) {
+                    Log.d("18April", "error ==> " + e.toString());
+                }
+
+            }
+        });
+
+    }   // update
+
     private int findIconMarker(String resultString) {
 
         int intIcon = R.drawable.kon48;
+        int intkey = Integer.parseInt(resultString);
+
+        switch (intkey) {
+
+            case 0:
+                intIcon = R.drawable.kon48;
+                break;
+            case 1:
+                intIcon = R.drawable.rat48;
+                break;
+            case 2:
+                intIcon = R.drawable.bird48;
+                break;
+            case 3:
+                intIcon = R.drawable.doremon48;
+                break;
+            case 4:
+                intIcon = R.drawable.nobita48;
+                break;
+
+        } //switch
+
+
+
+
         return intIcon;
     }
 
