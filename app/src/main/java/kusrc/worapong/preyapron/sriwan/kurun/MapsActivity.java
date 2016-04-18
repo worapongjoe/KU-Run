@@ -5,6 +5,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -58,6 +59,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //myLoop();
 
     }   // Main Method
+
+    // Create Inner Class
+    public class SynLatLngAllUser extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            try {
+
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url("http://swiftcodingthai.com/keng/php_get_user_master.php").build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
+
+            } catch (Exception e) {
+                Log.d("19April", "doIn ==>" + e.toString());
+                return null;
+            }
+
+
+        }   //DoInBack
+
+        @Override
+        protected void onPostExecute(String strJSON) {
+            super.onPostExecute(strJSON);
+
+            Log.d("19April", "strJSON ==>" + strJSON);
+
+
+        } //onPost
+    }   // SynLatLng Class
 
     private void myLoop() {
 
@@ -170,6 +203,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Update Lat, Lng to mySQL
         updateLatLngToMySQL();
+
+        //Synchronize Lat , Lng All USer
+        SynLatLngAllUser synLatLngAllUser = new SynLatLngAllUser();
+        synLatLngAllUser.execute();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
